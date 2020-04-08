@@ -1,53 +1,57 @@
-use std::fs;
-use std::error::Error;
-use std::ops::Index;
-use std::fmt::{ self , Display, Formatter };
+use std::ops::{ Index, IndexMut };
+use std::fmt::{ self, Display, Formatter };
 use std::slice;
 
-#[derive(Clone, Copy)]
+#[derive(Copy, Clone)]
 pub enum Cell {
     Candidates([bool; 9]),
     Solution(u8),
-    NoSolution, // useful if Candidates are all false
-    
+    NoSolution,
 }
+
+pub struct Matrix([[Cell; 9]; 9]);
+
+impl Matrix {
+    pub fn new(contents: Vec<[u8; 3]>) -> Self {
+
+        let mut matrix = Matrix(
+            // cell is an enum
+            [[Cell::Candidates([true; 9]);9];9]
+            );
+        
+        for [row, col, value] in contents.iter() {
+            matrix[*row as usize][*col as usize] = Cell::Solution(*value);
+        }
+
+        matrix
+    }
+}
+
 
 impl Display for Cell {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
         // use write!(f, "{}", something)
         // which returns a Result
         match self {
-            Cell::Candidates(_) => write!(f, "X"),
-            Cell::Solution(x) => write!(f, "{}", x),
-            Cell::NoSolution => write!(f, "?"),
+            Cell::Candidates(_) => write!(f, "  "),
+            Cell::Solution(x) => write!(f, "{} ", x),
+            Cell::NoSolution => write!(f, "? "),
         }
     }
 }
 
-// 9x9 grid of Cells
-pub struct Matrix([[Cell; 9]; 9]);
-
-impl Matrix {
-    // TODO: implement file input
-    pub fn new(args: &[String]) -> Result<Matrix, &'static str> {
-        let mut matrix = Matrix([[Cell::Candidates([true; 9]); 9]; 9]);
-
-        if args.len() < 2 {
-            return Err("not enough arguments");
-        }
-        let filename = &args[1];
-        
-
-
-        Ok( matrix )
-
-    }
-}
 
 impl Index<usize> for Matrix {
     type Output = [Cell; 9];
+
     fn index(&self, index: usize) -> &[Cell; 9] {
         &self.0[index]
+    }
+}
+
+impl IndexMut<usize> for Matrix {
+    fn index_mut(&mut self, index: usize) -> &mut Self::Output {
+        &mut self.0[index]
     }
 }
 
@@ -81,7 +85,7 @@ impl Display for Matrix {
             writeln!(f)?; // new line
             
             if row_index == 2 || row_index == 5 {
-                writeln!(f, "-----------------------")?;
+                writeln!(f, "---------------------")?;
             }
             
         }
@@ -89,6 +93,10 @@ impl Display for Matrix {
     }
 }
 
-pub fn solve() {
-
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn it_works() {
+        assert_eq!(2 + 2, 4);
+    }
 }
