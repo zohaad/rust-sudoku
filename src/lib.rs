@@ -2,13 +2,14 @@ use std::ops::{ Index, IndexMut };
 use std::fmt::{ self, Display, Formatter };
 use std::slice;
 
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, PartialEq, Debug)]
 pub enum Cell {
     Candidates([bool; 9]),
     Solution(u8),
     NoSolution,
 }
 
+#[derive(PartialEq, Debug)]
 pub struct Matrix([[Cell; 9]; 9]);
 
 impl Matrix {
@@ -82,21 +83,14 @@ impl Display for Matrix {
                 }
             }
             
-            writeln!(f)?; // new line
+            if row_index < 8 {
+                writeln!(f)?; // new line
+            }
             
             if row_index == 2 || row_index == 5 {
                 writeln!(f, "---------------------")?;
             }
-            
         }
         Ok(())
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
     }
 }

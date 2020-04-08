@@ -10,13 +10,13 @@ fn main() {
     
     let contents = read_file(&args).unwrap();
 
-    let matrix = Matrix::new(contents);
+    let matrix1 = Matrix::new(contents);
 
-
-    println!("{}", matrix);
+    println!("Matrix to solve:\n{}", matrix1);
 }
 
 // implementation specific
+// temporary function, should be completely moved to mod.rs
 // TODO: error handling
 fn read_file(args: &[String]) -> Result<Vec<[u8; 3]>, Box<dyn Error>> {
     if args.len() < 2 {
