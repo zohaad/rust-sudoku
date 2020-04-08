@@ -9,7 +9,7 @@ pub enum Cell {
     NoSolution,
 }
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq)]
 pub struct Matrix([[Cell; 9]; 9]);
 
 impl Matrix {
@@ -92,5 +92,11 @@ impl Display for Matrix {
             }
         }
         Ok(())
+    }
+}
+
+impl fmt::Debug for Matrix {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        write!(f, "\n{}\n", &self.to_string())
     }
 }

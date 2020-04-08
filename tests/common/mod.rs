@@ -10,8 +10,8 @@ pub fn read_matrix_and_solution(number: i32) -> (Matrix, Matrix) {
         panic!("Sudoku does not exist!");
     }
 
-    let matrix = &format!("Sudoku{}.txt", number);
-    let solution = &format!("Solution{}.txt", number);
+    let matrix = &format!("tests/assets/Sudoku{}.txt", number);
+    let solution = &format!("tests/assets/Solution{}.txt", number);
 
     let matrix = read_matrix(matrix);
     let solution = read_matrix(solution);

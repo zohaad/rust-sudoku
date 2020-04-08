@@ -10,9 +10,9 @@ fn main() {
     
     let contents = read_file(&args).unwrap();
 
-    let matrix1 = Matrix::new(contents);
+    let matrix = Matrix::new(contents);
 
-    println!("Matrix to solve:\n{}", matrix1);
+    println!("Matrix to solve:\n{}", matrix);
 }
 
 // implementation specific
