@@ -14,8 +14,10 @@ fn main() {
 
     println!("Sudoku to solve:\n{}\n", sudoku);
 
-    sudoku.solve();
+    let sudoku = sudoku.solve().unwrap();
+
     println!("{}", sudoku);
+
 }
 
 // implementation specific
