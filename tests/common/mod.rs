@@ -5,7 +5,7 @@ use std::convert::TryInto;
 use std::error::Error;
 
 
-pub fn read_matrix_and_solution(number: i32) -> (Sudoku, Sudoku) {
+pub fn read_matrix_and_solution(number: usize) -> (Sudoku, Sudoku) {
     if number < 1 || number > 6 {
         panic!("Sudoku does not exist!");
     }
